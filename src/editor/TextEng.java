@@ -13,14 +13,14 @@ public class TextEng {
     private Document document;
 
     private Deque<Memento> undoStack = new ArrayDeque<>(); // stores what have been writen
-    private Deque<Memento> redoStack = new ArrayDeque<>(); // stores what what have been deleted
+    private Deque<Memento> redoStack = new ArrayDeque<>(); // stores what have been deleted
 
     // Constructors
     public TextEng(){
         this.document = new Document();
     }
 
-    // Methods
+    // Public Methods
     public void write(String text){
         save();
         document.append(text);
@@ -46,10 +46,28 @@ public class TextEng {
     public String getText(){
         return document.getText();
     }
+
+    // Private Methods
+    private void save(){
+        undoStack.push(savetoMemento());
+    }
+    private Memento saveToMemento(){
+        return new Memento(documento.copy());
+    }
+
+    // Protected Methods
     protected Document getDocument(){
         return this.document;
     }
     protected void setDocument(Document d){
         this.document = d;
+    }
+
+    // Private Memento
+    private static class Memento {
+        private final Document document;
+        private Memento(Document document){
+            this.document = document;
+        }
     }
 }
