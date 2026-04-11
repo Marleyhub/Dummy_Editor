@@ -54,6 +54,9 @@ public class TextEng {
     private Memento saveToMemento(){
         return new Memento(documento.copy());
     }
+    private void restoreFromMemento(Memento m){
+        this.document = m.document;
+    }
 
     // Protected Methods
     protected Document getDocument(){
