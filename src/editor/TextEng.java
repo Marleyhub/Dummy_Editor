@@ -40,11 +40,21 @@ public class TextEng {
     }
     public void redo(){
         if(!redoStack.isEmpty()){
-
+            undoStack.push(saveToMemento());
+            Memento prev = redoStack.pop();
+            restoreFromMemento(prev);
         }
     }
     public String getText(){
         return document.getText();
+    }
+
+    // Protected Methods
+    protected Document getDocument(){
+        return this.document;
+    }
+    protected void setDocument(Document d){
+        this.document = d;
     }
 
     // Private Methods
@@ -56,14 +66,6 @@ public class TextEng {
     }
     private void restoreFromMemento(Memento m){
         this.document = m.document;
-    }
-
-    // Protected Methods
-    protected Document getDocument(){
-        return this.document;
-    }
-    protected void setDocument(Document d){
-        this.document = d;
     }
 
     // Private Memento
