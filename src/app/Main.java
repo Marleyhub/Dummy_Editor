@@ -7,7 +7,20 @@ public class Main {
 
         TextEng editor = new TextEng();
 
-        editor.write("Hello World");
-        System.out.println(editor.getText());
+        editor.write("Hello ");
+        editor.write("World");
+        System.out.println(editor.getText()); // Hello World
+
+        editor.undo();
+        System.out.println(editor.getText()); // Hello
+
+        editor.undo();
+        System.out.println(editor.getText()); // ""
+
+        editor.redo();
+        System.out.println(editor.getText()); // Hello
+
+        editor.redo();
+        System.out.println(editor.getText()); // Hello World
     }
 }

@@ -59,10 +59,10 @@ public class TextEng {
 
     // Private Methods
     private void save(){
-        undoStack.push(savetoMemento());
+        undoStack.push(saveToMemento());
     }
     private Memento saveToMemento(){
-        return new Memento(documento.copy());
+        return new Memento(document.copy());
     }
     private void restoreFromMemento(Memento m){
         this.document = m.document;

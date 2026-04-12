@@ -1,1 +1,7 @@
+
 .idea/
+
+app/*.class
+editor/*.class
+
+*.class
