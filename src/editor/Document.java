@@ -25,4 +25,7 @@ public class Document {
     public String getText() {
         return content.toString();
     }
+    public Document copy(){
+        return new Document(this.getText());
+    }
 }
