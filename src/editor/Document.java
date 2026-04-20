@@ -2,8 +2,8 @@ package editor;
 
 public class Document {
     /*
-     Real Document, the object of implemented by this class,
-     receives the alterations made by the TextEng class
+     the real Document is the object implemented by this class,
+     that receives the alterations made by the TextEng class
     */
 
     private StringBuilder content;
