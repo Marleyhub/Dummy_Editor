@@ -6,21 +6,22 @@ public class Main {
     public static void main(String[] args){
 
         TextEng editor = new TextEng();
+        History history = new History(editor);
 
-        editor.write("Hello ");
-        editor.write("World");
-        System.out.println(editor.getText()); // Hello World
+        // Writing something
+        history.push(editor.save());
+        editor.write("Esse memento is");
 
-        editor.undo();
-        System.out.println(editor.getText()); // Hello
+        // Undo
+        history.undo();
 
-        editor.undo();
-        System.out.println(editor.getText()); // ""
+        // Writing something
+        history.push(editor.save());
+        editor.write("Esse memento é mais profissional");
 
-        editor.redo();
-        System.out.println(editor.getText()); // Hello
+        // Undo
+        history.undo();
 
-        editor.redo();
-        System.out.println(editor.getText()); // Hello World
-    }
+        // Redo
+        history.redo();
 }

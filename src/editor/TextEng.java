@@ -7,17 +7,30 @@ public class TextEng {
     /*
     Text Engine:
     Responsable for handling user actions into the Document object
-    (write, delete, get), and memento implementation (undo, redo)
+    (write, delete, get), and memento implementation.
     */
 
-    private Document document;
+    private Document document = new Document();
 
-    private Deque<Memento> undoStack = new ArrayDeque<>(); // stores what have been writen
-    private Deque<Memento> redoStack = new ArrayDeque<>(); // stores what have been deleted
+    // Return the concrete class as a interface
+    // Only TextEng can open and see it's state
+    public Memento save(){
+        return new ConcreteMemento(document.copy()):
+    }
 
-    // Constructors
-    public TextEng(){
-        this.document = new Document();
+    // Even though public only TextEng can access
+    public void retore (Memento m){
+        if (m instanceof ConcreteMemento){
+            this.document = ((ConcreteMemento) m).state;
+        }
+    }
+
+    // Private nested class
+    private static void ConcreteMemento implements Memento{
+        private final Document state;
+        private ConcreteMemento(Document state){
+            this.state = state;
+        }
     }
 
     // Public Methods
@@ -31,20 +44,7 @@ public class TextEng {
         document.delete(start, end);
         redoStack.clear();
     }
-    public void undo(){
-        if (!undoStack.isEmpty()){
-            redoStack.push(saveToMemento());
-            Memento prev = undoStack.pop();
-            restoreFromMemento(prev);
-        }
-    }
-    public void redo(){
-        if(!redoStack.isEmpty()){
-            undoStack.push(saveToMemento());
-            Memento prev = redoStack.pop();
-            restoreFromMemento(prev);
-        }
-    }
+
     public String getText(){
         return document.getText();
     }
@@ -55,24 +55,5 @@ public class TextEng {
     }
     protected void setDocument(Document d){
         this.document = d;
-    }
-
-    // Private Methods
-    private void save(){
-        undoStack.push(saveToMemento());
-    }
-    private Memento saveToMemento(){
-        return new Memento(document.copy());
-    }
-    private void restoreFromMemento(Memento m){
-        this.document = m.document;
-    }
-
-    // Private Memento
-    private static class Memento {
-        private final Document document;
-        private Memento(Document document){
-            this.document = document;
-        }
     }
 }
