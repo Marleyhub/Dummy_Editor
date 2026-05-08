@@ -3,25 +3,25 @@ package app;
 import editor.TextEng;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         TextEng editor = new TextEng();
         History history = new History(editor);
 
         // Writing something
         history.push(editor.save());
-        editor.write("Esse memento is");
+        editor.write("Vc conhece esse padrão ");
+        System.out.println(editor.getText());
 
-        // Undo
-        history.undo();
-
-        // Writing something
+        // Concatenating
         history.push(editor.save());
-        editor.write("Esse memento é mais profissional");
+        editor.write("Vc conhece esse padrão?");
+        System.out.println(editor.getText());
 
         // Undo
         history.undo();
-
-        // Redo
-        history.redo();
+        history.undo();
+        editor.write("Vocẽ conhece este padrão de projeto GoF chamado memento?");
+        System.out.println(editor.getText());
+    };
 }

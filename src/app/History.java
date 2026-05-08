@@ -1,5 +1,7 @@
-package editor;
+package app;
 
+import editor.TextEng;
+import editor.Memento;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -17,14 +19,15 @@ public class History {
         redoStack.clear();
     }
 
+    // Save current state to redo, then restore previous state
     public void undo() {
         if (!undoStack.isEmpty()) {
-            // Save current state to redo, then restore old state
             redoStack.push(engine.save());
             engine.restore(undoStack.pop());
         }
     }
 
+    // Save current state to undo, then restore prvious state
     public void redo() {
         if (!redoStack.isEmpty()) {
             undoStack.push(engine.save());

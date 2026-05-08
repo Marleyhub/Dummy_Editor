@@ -13,38 +13,33 @@ public class TextEng {
     private Document document = new Document();
 
     // Return the concrete class as a interface
-    // Only TextEng can open and see it's state
+    // Only TextEng can open and see it's concrete state
     public Memento save(){
-        return new ConcreteMemento(document.copy()):
+        return new ConcreteMemento(document.copy());
     }
 
-    // Even though public only TextEng can access
-    public void retore (Memento m){
+    // Downcasting: Even though public, only TextEng can access it
+    public void restore (Memento m){
         if (m instanceof ConcreteMemento){
             this.document = ((ConcreteMemento) m).state;
         }
     }
 
     // Private nested class
-    private static void ConcreteMemento implements Memento{
+    private static class ConcreteMemento implements Memento{
         private final Document state;
         private ConcreteMemento(Document state){
             this.state = state;
         }
     }
 
-    // Public Methods
+    // Public whappers for Document Methods
     public void write(String text){
-        save();
         document.append(text);
-        redoStack.clear();
     }
     public void delete(int start, int end) {
-        save();
         document.delete(start, end);
-        redoStack.clear();
     }
-
     public String getText(){
         return document.getText();
     }
